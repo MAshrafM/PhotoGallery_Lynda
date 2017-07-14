@@ -1,0 +1,76 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Custome */
+/* Site Colors:
+  #1A446C - blue grey
+  #689DC1 - light blue
+  #D4E6F4 - very light blue
+  #EEE4B9 - light tan
+  #8D0D19 - burgundy
+*/
+
+html { height: 100%; width: 100%; }
+body { height: 100%; width: 100%; margin: 0; padding: 0; border: 0; background: #FFFFFF;
+  font: 13px/15px Verdana,Arial,Helvetica,sans-serif; }
+img { border: none; }
+table, tr, td, tr { border-collapse: collapse; vertical-align: top; text-align: left;
+  font: 13px/15px Verdana,Arial,Helvetica,sans-serif; }
+a { color: #8D0D19;}
+
+#header { height: 70px; text-align: left; background: #1A446C; color: #D4E6F4; }
+#header h1 { padding: 1em; }
+
+/* Note: IE 5 & 6 won't understand min-height */
+#main { min-height: 600px; width: 100%; background: #EEE4B9; padding: 2em;}
+
+#footer { height: 2em; padding: 1em; text-align: center; 
+  background: #1A446C;  color: #D4E6F4; }
+
+table.bordered tr th, table.bordered tr td { border: 1px solid #000000; }
