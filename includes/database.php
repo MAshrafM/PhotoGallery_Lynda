@@ -28,6 +28,34 @@ class MySQLDatabase{
       unset($this->connection);
     }
   }
+  //query
+  public function query($sql){
+    $result = mysql_query($sql, $this->connection);
+    confirm_query($result)
+    return $result;
+  }
+  // prep
+  public function mysql_prep($value){
+    $magic_quotes_active = get_magic_quotes_gpc();
+    $new_enough_php = function_exists("mysql_real_escape_string");
+    if($new_enough_php){
+      if($magic_quotes_active){
+        $value = stripslashes($valye);
+      }
+    }
+    else{
+      if(!$magic_quotes_active){
+        $value = addslashes($value);
+      }
+    }
+    return $value;
+  }
+  //confirm query
+  private function confirm_query($result){
+    if(!$result){
+      die("Database connection failed: " . mysql_error());
+    }
+  }
 }
 
 // Database object
