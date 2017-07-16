@@ -2,11 +2,16 @@
 require_once("config.php");
 
 class MySQLDatabase{
-  
+  // attributes
   private $connection;
+  private $magic_quotes_active;
+  private $real_escape_string_exists;
+  public $last_query;
   // class construct
   function __construct(){
     $this->open_connection();
+    $this->magic_quotes_active = get_magic_quotes_gpc();
+    $this->real_escape_string_exists = function_exists("mysql_real_escape_string");
   }
   // open db connection and select db
   public function open_connection(){
@@ -30,17 +35,16 @@ class MySQLDatabase{
   }
   //query
   public function query($sql){
+    $this->last_query = $sql;
     $result = mysql_query($sql, $this->connection);
     confirm_query($result)
     return $result;
   }
   // prep
   public function escape_value($value){
-    $magic_quotes_active = get_magic_quotes_gpc();
-    $new_enough_php = function_exists("mysql_real_escape_string");
-    if($new_enough_php){
-      if($magic_quotes_active){
-        $value = stripslashes($valye);
+    if($this->real_escape_string_exists){
+      if($this->magic_quotes_active){
+        $value = stripslashes($value);
       }
     }
     else{
@@ -66,7 +70,9 @@ class MySQLDatabase{
   //confirm query
   private function confirm_query($result){
     if(!$result){
-      die("Database connection failed: " . mysql_error());
+      $output = "Database query failed: " . mysql_error() . "<br /><br />";
+      $output .= "Last SQL query: " . $this->last_query;
+      die($output);
     }
   }
 }
