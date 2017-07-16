@@ -35,7 +35,7 @@ class MySQLDatabase{
     return $result;
   }
   // prep
-  public function mysql_prep($value){
+  public function escape_value($value){
     $magic_quotes_active = get_magic_quotes_gpc();
     $new_enough_php = function_exists("mysql_real_escape_string");
     if($new_enough_php){
@@ -49,6 +49,19 @@ class MySQLDatabase{
       }
     }
     return $value;
+  }
+  // db agnostic
+  public function fetch_array($result){
+    return mysql_fetch_array($result);
+  }
+  public function num_rows($result){
+    return mysql_num_rows($result);
+  }
+  public function insert_id(){
+    return mysql_insert_id($this->connection);
+  }
+  public function affected_rows(){
+    return mysql_affected_rows($this->connection);
   }
   //confirm query
   private function confirm_query($result){

@@ -1,3 +1,4 @@
 <?php 
-  echo "Is This Working"
+  require_once("../includes/database.php");
+  
 ?>
