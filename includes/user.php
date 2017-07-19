@@ -15,15 +15,18 @@ class User{
   
   public static function find_by_id($id = 0){
     global $database;
-    $result_set = self::find_by_sql("SELECT * FROM users WHERE id = {$id} LIMIT 1");
-    $found = $database->fetch_array($result_set);
-    return $found;
+    $result_arr = self::find_by_sql("SELECT * FROM users WHERE id = {$id} LIMIT 1");
+    return !empty($result_arr) ? array_shift($result_arr) : false;
   }
   
   public static function find_by_sql($sql=""){
     global $database;
     $result_set = $database->query($sql);
-    return $result_set;
+    $obj_arr = array();
+    while($row = $database->fetch_array($result_set)){
+      $obj_arr[] = self::instantiate($row);
+    }
+    return $obj_arr;
   }
 
   public function full_name(){
