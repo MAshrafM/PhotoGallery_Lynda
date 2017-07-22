@@ -24,16 +24,7 @@
     $password = "";
   }
 ?>
-<html>
-  <head>
-    <title>Photo Gallery</title>
-    <link href="../stylesheets/main.css" media="all" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <header>
-      <h1>Photo Gallery</h1>
-    </header>
-    <main>
+<?php include_layout_template('admin_header.php'); ?>
       <h2>Staff Login</h2>
       <?php echo output_message($message); ?>
       <form action="login.php" method="post">
@@ -43,12 +34,7 @@
           <tr><td colspan="2"><input type="submit" name="submit" value="Login" /></td></tr>
         </table>
       </form>
-    </main>
-    <footer>
-      Copyright &copy; <?php echo data("Y", time()); ?>, MAshraf.
-    </footer>
-  </body>
-</html>
+<?php include_layout_template('admin_footer.php'); ?>
 <?php 
 if(isset($database)){
   $database->close_connection();
