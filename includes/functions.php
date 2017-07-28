@@ -36,4 +36,19 @@ function __autoload($class_name){
 function include_layout_template($template=""){
   include(SITE_ROOT.DS.'public'.DS.'layouts'.DS.$template);
 }
+
+function log_action($action, $msg=""){
+  $logfile = SITE_ROOT.DS."logs".DS."log.txt";
+  $new = file_exists($logfile) ? false : true;
+  if($handle = fopen($logfile, 'a')){
+    $timestamp = strftime("%Y-%m-%d %H:%M:%S", time());
+    $content = "{$timestamp} | {$action}: {$msg} \r\n";
+    fwrite($handle, $content);
+    fclose($handle);
+    if(new){ chmod($logfile, 0755); }
+  }
+  else{
+    echo "Could not open log file for writing";
+  }
+}
 ?>
