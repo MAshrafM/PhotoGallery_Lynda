@@ -32,7 +32,7 @@ class User extends DatabaseObject{
     $result_arr = self::find_by_sql($sql);
     return !empty($result_arr) ? array_shift($result_arr) : false;
   }
-  
+  // Create User
   public function create(){
     global $database;
     $sql = "INSERT INTO users (";
@@ -50,9 +50,21 @@ class User extends DatabaseObject{
       return false;
     }
   }
-  
+  // Update User
   public function update(){
-    
+    global $database;
+    $sql = "UPDATE users SET ";
+    $sql .= "username = '". $database->escape_value($this->username) ."', ";
+    $sql .= "username = '". $database->escape_value($this->password) ."', ";
+    $sql .= "username = '". $database->escape_value($this->first_name) ."', ";
+    $sql .= "username = '". $database->escape_value($this->last_name) ."'";
+    $sql .= " WHERE id = ". $database->escape_value($this->id);
+    $database->query($sql);
+    return($database->affected_rows() == 1) ? true : false;
+  }
+    // save Create || Update
+  public function save(){
+    return isset($this->id) ? $this->update() : $this->create();
   }
   
   public function delete(){
