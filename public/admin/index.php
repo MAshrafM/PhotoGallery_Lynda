@@ -5,6 +5,7 @@
 ?>
 <?php include_layout_template('admin_header.php'); ?>
       <h2>Menu</h2>
+      <?php echo output_message($message); ?>
       <ul>
         <li><a href="./logfile.php">Log File.</a></li>
         <li><a href="#">Log Out</a></li>
