@@ -42,7 +42,7 @@ class Session{
       $this->logged_in = true;
     }
     else{
-      unset(this->user_id);
+      unset($this->user_id);
       $this->logged_in = false;
     }
   }

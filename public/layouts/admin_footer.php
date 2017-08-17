@@ -1,7 +1,7 @@
 
 </main>
 <footer>
-  Copyright &copy; <?php echo data("Y", time()); ?>, MAshraf.
+  Copyright &copy; <?php echo date("Y", time()); ?>, MAshraf.
 </footer>
 </html>
   

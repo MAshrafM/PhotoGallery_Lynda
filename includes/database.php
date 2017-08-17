@@ -15,12 +15,12 @@ class MySQLDatabase{
   }
   // open db connection and select db
   public function open_connection(){
-    $this->connection - mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+    $this->connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS);
     if(!$this->connection){
       die("Database connection failed: " . mysql_error());
     }
     else{
-      $db_select = mysql_select_db(DB_NAME, $this->connection);
+      $db_select = mysqli_select_db($this->connection, DB_NAME);
       if(!$db_select){
         die("Database connection failed: " . mysql_error());
       }
@@ -36,8 +36,8 @@ class MySQLDatabase{
   //query
   public function query($sql){
     $this->last_query = $sql;
-    $result = mysql_query($sql, $this->connection);
-    confirm_query($result)
+    $result = mysqli_query($this->connection, $sql);
+    $this->confirm_query($result);
     return $result;
   }
   // prep
@@ -56,16 +56,16 @@ class MySQLDatabase{
   }
   // db agnostic
   public function fetch_array($result){
-    return mysql_fetch_array($result);
+    return mysqli_fetch_array($result);
   }
   public function num_rows($result){
-    return mysql_num_rows($result);
+    return mysqli_num_rows($result);
   }
   public function insert_id(){
-    return mysql_insert_id($this->connection);
+    return mysqli_insert_id($this->connection);
   }
   public function affected_rows(){
-    return mysql_affected_rows($this->connection);
+    return mysqli_affected_rows($this->connection);
   }
   //confirm query
   private function confirm_query($result){

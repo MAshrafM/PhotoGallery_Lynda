@@ -26,7 +26,7 @@ class DatabaseObject{
   }
   // init object
   private static function instantiate($record){
-    $class_name = get_called_class()
+    $class_name = get_called_class();
     $obj = new $class_name;    
     foreach($record as $attr=>$value){
       if($obj->has_attribute($attr)){
@@ -45,7 +45,7 @@ class DatabaseObject{
     $attributes = array();
     foreach(static::$db_fields as $field){
       if(property_exists($this, $field)){
-        $attributes[$field] = $this->field;
+        $attributes[$field] = $this->$field;
       }
     }
     return $attributes;
@@ -66,7 +66,7 @@ class DatabaseObject{
     $sql = "INSERT INTO ". static::$table_name ." (";
     $sql .= join(", ", array_keys($attributes));
     $sql .= ") VALUES ('";
-    $sql .= join("', ", array_values($attributes));
+    $sql .= join("', '", array_values($attributes));
     $sql .= "')";
     if($database->query($sql)){
       $this->id = $database->insert_id();

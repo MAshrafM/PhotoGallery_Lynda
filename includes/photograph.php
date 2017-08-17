@@ -4,7 +4,7 @@ require_once(LIB_PATH.DS.'database.php');
 
 class Photograph extends DatabaseObject{
   protected static $table_name = "photographs";
-  protected static $db_fields = array('id', 'filename', 'type', 'size', 'caption');
+  protected static $db_fields = array('filename', 'type', 'size', 'caption');
   public $id;
   public $filename;
   public $type;
@@ -14,14 +14,14 @@ class Photograph extends DatabaseObject{
   protected $upload_dir = "images";
   public $error = array();
   protected $upload_errors = array(
-    UPLOAD_ERR_OK => "No Errors",
-    UPLOAD_ERR_INI_SIZE => "Larger than max uploadfile size",
-    UPLOAD_ERR_FROM-SIZE => "Larger than max file size",
-    UPLOAD_ERR_PARTIAL => "Partial upload",
-    UPLOAD_ERR_NO_FILE => "No file",
-    UPLOAD_ERR_NO_TMP_DIR => "No temp dir",
-    UPLOAD_ERR_CANT_WRITE => "Cant write to disk",
-    UPLOAD_ERR_EXTENSION => "unsupported extension"
+    'UPLOAD_ERR_OK' => "No Errors",
+    'UPLOAD_ERR_INI_SIZE' => "Larger than max uploadfile size",
+    'UPLOAD_ERR_FROM-SIZE' => "Larger than max file size",
+    'UPLOAD_ERR_PARTIAL' => "Partial upload",
+    'UPLOAD_ERR_NO_FILE' => "No file",
+    'UPLOAD_ERR_NO_TMP_DIR' => "No temp dir",
+    'UPLOAD_ERR_CANT_WRITE' => "Cant write to disk",
+    'UPLOAD_ERR_EXTENSION' => "unsupported extension"
   );
   
   public function attach_file($file){
@@ -34,7 +34,7 @@ class Photograph extends DatabaseObject{
       return false;
     }
     else{
-      $this=>temp_path = $file['tmp_name'];
+      $this->temp_path = $file['tmp_name'];
       $this->filename = basename($file['name']);
       $this->type = $file['type'];
       $this->size = $file['size'];
@@ -50,7 +50,7 @@ class Photograph extends DatabaseObject{
         if(!empty($this->errors)){
           return false;
         }    
-        if(strlen($this->caption) <= 255){
+        if(strlen($this->caption) >= 255){
           $this->errors[] = "This caption can only be 255 characters long";
           return false;
         }

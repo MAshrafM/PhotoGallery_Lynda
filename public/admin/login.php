@@ -8,8 +8,8 @@
   //Form with name submit
   if(isset($_POST['submit'])){
     $username = trim($_POST['username']);
-    $password = trim($_POSTp['password']);
-  }
+    $password = trim($_POST['password']);
+  
   // check db if user exists
   $found_user = User::authenticate($username, $password);
     if($found_user){
@@ -20,6 +20,7 @@
     else{
       $message = "Username/Password combination not correct";
     }
+  }
   else{
     $username = "";
     $password = "";
