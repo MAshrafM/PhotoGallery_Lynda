@@ -11,6 +11,24 @@
     $session->message("The photo could not be located");
     redirect_to("index.php");
   }
+  
+  if(isset($_POST["submit"])){
+    $author = trim($_POST["author"]);
+    $body = trim($_POST["body"]);
+    
+    $new_comment = Comment::make($photo->id, $author, $body);
+    if($new_comment && $new_comment->save()){
+      $message = "Comment saved";
+      redirect_to("photo.php?id={$photo->id}");
+    }
+    else{
+      $message = "There was an error in posting the comment";
+    }
+  }
+  else{
+    $author = "";
+    $body = "";
+  }
 ?>
 <?php include_layout_template('header.php'); ?>
   <a href="index.php">&laquo; Back</a><br />
@@ -18,4 +36,24 @@
     <img src="<?php echo $photo->image_path(); ?>" width="200" />
     <p><?php echo $photo->caption; ?></p>
   </div>
+  
+  <hr />
+  <h3> New Comment </h3>
+  <?php echo output_message($message); ?>
+  <form action="photo.php?id=<?php echo $photo->id; ?>" method="post">
+    <table>
+      <tr>
+        <td>Your Name: </td>
+        <td><input type="text" name="author" value="<?php echo $author; ?>" /></td>
+      </tr>
+      <tr>
+        <td>Your Comment: </td>
+        <td><textarea name="body" cols="40" rows ="8" ><?php echo $body; ?></textarea></td>
+      </tr>
+      <tr>
+        <td>&nbsp; </td>
+        <td><input type="submit" name="submit" value="Submit Comment" /></td>
+      </tr>
+    </table>
+  </form>
 <?php include_layout_template('footer.php'); ?>
