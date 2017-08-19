@@ -105,4 +105,8 @@ class Photograph extends DatabaseObject{
       return "{$size_mb} MB";
     }
   }
+
+  public function comments(){
+    return Comment::find_comments_on($this->id);
+  }
 }
