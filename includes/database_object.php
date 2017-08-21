@@ -24,6 +24,14 @@ class DatabaseObject{
     }
     return $obj_arr;
   }
+  // count all 
+  public static function count_all(){
+    global $database;
+    $sql = "SELECT COUNT(*) FROM " . static::$table_name;
+    $result_set = $database->query($sql);
+    $row = $database->fetch_array($result_set);
+    return array_shift($row);
+  }
   // init object
   private static function instantiate($record){
     $class_name = get_called_class();
