@@ -19,6 +19,7 @@
     $new_comment = Comment::make($photo->id, $author, $body);
     if($new_comment && $new_comment->save()){
       $message = "Comment saved";
+      $new_comment->send_notification();
       redirect_to("photo.php?id={$photo->id}");
     }
     else{

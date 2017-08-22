@@ -32,5 +32,32 @@ class Comment extends DatabaseObject{
     $sql .= " ORDER BY created ASC";
     return self::find_by_sql($sql);
   }
+
+  public static send_notification(){
+    $mail = new PHPMailer();
+    
+    $mail->IsSMTP();
+    $mail->Host = "your.host.com";
+    $mail->Port = 25;
+    $mail->SMTPAuth = false;
+    $mail->Username = "MAshraf";
+    $mail->Password = "password";
+    
+    $mail->FromName = "Photo Gallery";
+    $mail->From = "noreply@pg.com";
+    $mail->AddAddress("MA", "PG Admin");
+    $mail->Subject = "New Comment";
+    $mail->Body =<<<EMAILBODY
+    A new comment has been recieved in the PG.
+    
+    At {$this->created}, {$this->author} wrote:
+    
+    {$this->body}
+    
+    EMAILBODY;
+    
+    $result = $mail->Send();
+    return $result;
+  }
 }
 ?>
